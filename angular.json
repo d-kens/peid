@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "nlipe-web": {
+    "peid": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "nlipe-web:build:production"
+              "buildTarget": "peid:build:production"
             },
             "development": {
-              "buildTarget": "nlipe-web:build:development"
+              "buildTarget": "peid:build:development"
             }
           },
           "defaultConfiguration": "development"
