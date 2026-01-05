@@ -1,9 +1,14 @@
 import {Routes} from '@angular/router';
 import {AuthPage} from './pages/auth-page/auth-page';
+import {Login} from './components/login/login';
 
 export const AUTH_ROUTES: Routes = [
-  {path: 'login', component: AuthPage},
-  {path: 'register', component: AuthPage},
-  {path: 'reset-password', component: AuthPage},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: '',
+    component: AuthPage,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: Login }
+    ]
+  }
 ]
