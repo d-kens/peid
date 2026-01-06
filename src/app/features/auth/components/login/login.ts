@@ -1,37 +1,45 @@
 import {Component, signal} from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
+  loginForm: FormGroup;
 
   hidePassword = signal(true)
+
+  constructor(private fb: FormBuilder) {
+    this.loginForm = fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    })
+  }
 
   togglePasswordVisibility(event: MouseEvent) {
     this.hidePassword.set(!this.hidePassword())
     event.stopPropagation();
+  }
+
+  onSubmit() {
+    this.loginForm.markAllAsTouched();
   }
 }
