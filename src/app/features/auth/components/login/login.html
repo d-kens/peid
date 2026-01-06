@@ -1,75 +1,48 @@
-<div class="border-amber-100 border-4">
-  This is where login content will be. This is where login content will be. This is where login content will be.
+<div class="">
+  <div class="text-center py-2">
+      <h2 class="text-2xl text-gray-900 font-semibold">Welcome Back</h2>
+      <p class="text-sm text-gray-500">Sign in to continue</p>
+  </div>
+
+  <form class="pt-2">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="janedoe@gmail.com">
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full !pb-0 no-subscript">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword()? 'password' : 'text'" >
+          <button
+              matIconButton
+              matSuffix
+              (click)="togglePasswordVisibility($event)"
+              type="button"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+  </form>
+
+  <div class="text-right my-1">
+    <a class="text-xs text-gray-900 hover:underline hover:cursor-pointer">
+      Forgot password
+    </a>
+  </div>
+
+  <button
+      mat-flat-button
+      class="w-full h-11 !bg-gray-900 !text-white !rounded-[8px]"
+      type="button"
+  >
+      Sign In
+  </button>
+
+
+  <div class="text-center pt-4">
+    <p class="text-sm text-gray-500">Don't have an account? <a class="text-blue-500 hover:underline hover:cursor-pointer">Create one</a></p>
+  </div>
+
+
 </div>
-
-
-
-
-
-
-
-
-
-
-<!--<div class="w-full max-w-md mx-auto">-->
-<!--  <mat-card class="shadow-lg">-->
-<!--    <mat-card-header>-->
-<!--      <div class="w-full text-center py-2">-->
-<!--        <h2 class="text-2xl font-semibold">Welcome back</h2>-->
-<!--        <p class="text-sm text-gray-500">Sign in to continue</p>-->
-<!--      </div>-->
-<!--    </mat-card-header>-->
-
-<!--    <mat-card-content>-->
-<!--      <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5 pt-2">-->
-<!--        &lt;!&ndash; Email &ndash;&gt;-->
-<!--        <mat-form-field appearance="outline" class="w-full">-->
-<!--          <mat-label>Email</mat-label>-->
-<!--          <input matInput type="email" placeholder="you@example.com" formControlName="email" required>-->
-<!--          <mat-icon matSuffix>mail</mat-icon>-->
-<!--          <mat-error *ngIf="email?.hasError('required')">Email is required</mat-error>-->
-<!--          <mat-error *ngIf="email?.hasError('email')">Enter a valid email</mat-error>-->
-<!--        </mat-form-field>-->
-
-<!--        &lt;!&ndash; Password &ndash;&gt;-->
-<!--        <mat-form-field appearance="outline" class="w-full">-->
-<!--          <mat-label>Password</mat-label>-->
-<!--          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="••••••••" formControlName="password" required>-->
-<!--          <button mat-icon-button type="button" matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="hidePassword() ? 'Show password' : 'Hide password'" [attr.aria-pressed]="!hidePassword()">-->
-<!--            <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>-->
-<!--          </button>-->
-<!--            @if(password?.hasError('required')) {-->
-<!--              <mat-error>Password is required</mat-error>-->
-<!--            }-->
-
-<!--            @if(password?.hasError('minlength')) {-->
-<!--              <mat-error>Minimum 6 characters</mat-error>-->
-<!--            }-->
-<!--        </mat-form-field>-->
-
-<!--        <div class="flex items-center justify-between">-->
-<!--          <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>-->
-<!--          <a class="text-sm text-blue-600 hover:underline" href="#" (click)="$event.preventDefault()">Forgot password?</a>-->
-<!--        </div>-->
-
-<!--        <button mat-flat-button color="primary" class="w-full h-11" type="submit" [disabled]="form.invalid || loading()">-->
-<!--          @if (!loading()) {-->
-<!--            <span>Sign in</span>-->
-<!--          } @else {-->
-<!--            <span>Loading...</span>-->
-<!--          }-->
-<!--        </button>-->
-<!--        <ng-template #loadingTpl>-->
-<!--          <div class="flex items-center justify-center gap-2">-->
-<!--            <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>-->
-<!--            <span>Signing in...</span>-->
-<!--          </div>-->
-<!--        </ng-template>-->
-<!--      </form>-->
-<!--    </mat-card-content>-->
-
-<!--    <mat-card-actions class="justify-center py-2">-->
-<!--      <p class="text-sm text-gray-500">Don't have an account? <a class="text-blue-600 hover:underline" href="#">Create one</a></p>-->
-<!--    </mat-card-actions>-->
-<!--  </mat-card>-->
-<!--</div>-->
