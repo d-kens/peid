@@ -1,0 +1,67 @@
+<div>
+  <div class="text-center py-2">
+      <h2 class="text-2xl text-gray-900 font-semibold">Welcome Back</h2>
+      <p class="text-sm text-gray-500">Sign in to continue</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="pt-2">
+        <mat-form-field appearance="outline" class="w-full mb-3">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="janedoe@gmail.com" formControlName="email" >
+          <mat-icon matSuffix>mail</mat-icon>
+
+          @if(loginForm.get('email')?.hasError('required')) {
+            <mat-error>
+              Email is required
+            </mat-error>
+          }
+
+          @if(loginForm.get('email')?.hasError('email')) {
+            <mat-error>
+              Enter a valid email
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword()? 'password' : 'text'" formControlName="password">
+          <button
+              matIconButton
+              matSuffix
+              (click)="togglePasswordVisibility($event)"
+              type="button"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+
+          @if(loginForm.get('password')?.hasError('required')) {
+            <mat-error>
+              Password is required
+            </mat-error>
+          }
+        </mat-form-field>
+  </form>
+
+  <div class="text-right my-1">
+    <a class="text-xs text-gray-900 hover:underline hover:cursor-pointer">
+      Forgot password
+    </a>
+  </div>
+
+  <button
+      mat-flat-button
+      class="w-full h-11 !bg-gray-900 !text-white !rounded-[8px]"
+      type="submit"
+      (click)="onSubmit()"
+  >
+      Sign In
+  </button>
+
+
+  <div class="text-center pt-4">
+    <p class="text-sm text-gray-500">Don't have an account? <a class="text-blue-500 hover:underline hover:cursor-pointer">Create one</a></p>
+  </div>
+
+
+</div>

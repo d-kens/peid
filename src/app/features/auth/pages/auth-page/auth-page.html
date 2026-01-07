@@ -1,10 +1,9 @@
 <div class="flex min-h-screen">
-  <!-- Left Panel: Branding / Marketing -->
   <div
     class="hidden lg:flex lg:flex-[2] bg-gray-900 text-white items-center justify-center p-12"
   >
     <div class="text-center space-y-6 max-w-lg">
-      <h1 class="text-5xl font-bold">Welcome to Peid</h1>
+      <h1 class="text-5xl font-bold">Peid</h1>
       <p class="text-xl">
         Generate payment links and share them to get paid instantly.
       </p>
@@ -14,8 +13,8 @@
     </div>
   </div>
 
-  <!-- Right Panel: Auth Forms -->
-  <div class="flex-1 flex items-center justify-center p-8 bg-gray-50">
-    This is where auth forms will be
+  <!-- TODO: Fix the padding on smaller screen -->
+  <div class="flex-1 flex items-center justify-center p-8">
+    <router-outlet />
   </div>
 </div>
