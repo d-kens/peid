@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../../core/service/auth-service';
+import {AuthRequest} from '../../../../core/model/auth.models';
 
 @Component({
   selector: 'app-login',
@@ -44,6 +45,18 @@ export class Login {
   }
 
   onSubmit() {
+    const authRequest: AuthRequest = {
+      email: this.loginForm.get('email')!.value,
+      password: this.loginForm.get('password')!.value
+    }
+    this.authService.login(authRequest).subscribe({
+      next: (res) => {
+        console.log("This is the response: ", res)
+      },
+      error: (err) => {
+        console.log("This is the error: ", err)
+      }
+    })
     this.loginForm.markAllAsTouched();
   }
 }
