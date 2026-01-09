@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AuthService} from '../../../../core/service/auth-service';
 import {AuthRequest} from '../../../../core/model/auth.models';
 import {ActivatedRoute, Router} from '@angular/router';
+import {SnackbarService} from '../../../../core/service/snackbar-service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class Login {
     private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -70,10 +72,12 @@ export class Login {
     this.authService.login(authRequest).subscribe({
       next: () => {
         this.isLoading.set(false);
+        this.snackbarService.showSuccess('Login successful!');
         this.router.navigateByUrl(this.returnUrl);
       },
       error: (err) => {
         console.log('This is the error: ', err);
+        const errorMessage = err?.error?.message || 'Login failed. Please check your credentials.';
         this.isLoading.set(false);
       }
     });
