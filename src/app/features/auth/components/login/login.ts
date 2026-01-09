@@ -6,6 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {AuthService} from '../../../../core/service/auth-service';
+import {AuthRequest} from '../../../../core/model/auth.models';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SnackbarService} from '../../../../core/service/snackbar-service';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +28,27 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 })
 export class Login {
   loginForm: FormGroup;
-
+  isLoading = signal(false);
   hidePassword = signal(true)
 
-  constructor(private fb: FormBuilder) {
+  returnUrl: string = '/dashboard';
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+  ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
+
+    const fromQuery = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (fromQuery) {
+      this.returnUrl = fromQuery;
+    }
   }
 
   togglePasswordVisibility(event: MouseEvent) {
@@ -39,7 +56,30 @@ export class Login {
     event.stopPropagation();
   }
 
-  onSubmit() {
-    this.loginForm.markAllAsTouched();
+  login() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    const authRequest: AuthRequest = {
+      email: this.loginForm.get('email')!.value,
+      password: this.loginForm.get('password')!.value
+    };
+
+    this.authService.login(authRequest).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.snackbarService.showSuccess('Login successful!');
+        this.router.navigateByUrl(this.returnUrl);
+      },
+      error: (err) => {
+        console.log('This is the error: ', err);
+        const errorMessage = err?.error?.message || 'Login failed. Please check your credentials.';
+        this.isLoading.set(false);
+      }
+    });
   }
 }
