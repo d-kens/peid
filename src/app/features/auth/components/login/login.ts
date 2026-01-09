@@ -8,7 +8,7 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../../core/service/auth-service';
 import {AuthRequest} from '../../../../core/model/auth.models';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {SnackbarService} from '../../../../core/service/snackbar-service';
 
 @Component({
@@ -16,6 +16,7 @@ import {SnackbarService} from '../../../../core/service/snackbar-service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -29,7 +30,7 @@ import {SnackbarService} from '../../../../core/service/snackbar-service';
 export class Login {
   loginForm: FormGroup;
   isLoading = signal(false);
-  hidePassword = signal(true)
+  hidePassword = signal(true);
 
   returnUrl: string = '/dashboard';
 

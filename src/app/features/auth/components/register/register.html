@@ -1,0 +1,72 @@
+<div>
+  <div class="text-center mb-6">
+    <h2 class="text-2xl text-gray-900 font-semibold mb-2">Create an Account</h2>
+    <p class="text-sm text-gray-500">Sign up to get started</p>
+  </div>
+
+  <form class="space-y-2">
+    <mat-form-field appearance="outline" class="w-full compact-field">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" placeholder="janedoe">
+      <mat-icon matSuffix>account_circle</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full compact-field">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="janedoe@gmail.com">
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full compact-field">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="visibility().password ? 'password' : 'text'">
+      <button
+        matIconButton
+        matSuffix
+        (click)="toggleVisibility('password', $event)"
+        type="button"
+      >
+        <mat-icon>{{ visibility().password ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full compact-field">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput [type]="visibility().confirmPassword ? 'password' : 'text'">
+      <button
+        matIconButton
+        matSuffix
+        (click)="toggleVisibility('confirmPassword', $event)"
+        type="button"
+      >
+        <mat-icon>{{ visibility().confirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      class="w-full h-11 !bg-gray-900 !text-white !rounded-lg"
+      type="submit"
+      (click)="createAccount()"
+    >
+      @if (isLoading()) {
+        <div class="flex items-center justify-center gap-2">
+          <mat-progress-spinner
+            diameter="18"
+            mode="indeterminate"
+          ></mat-progress-spinner>
+          <span>Creating account...</span>
+        </div>
+      } @else {
+        <span>Create Account</span>
+      }
+    </button>
+  </form>
+
+  <div class="text-center mt-6">
+    <p class="text-sm text-gray-500">
+      Already have an account?
+      <a [routerLink]="['/auth/login']" class="text-blue-500 hover:underline cursor-pointer ml-1">Login</a>
+    </p>
+  </div>
+</div>
