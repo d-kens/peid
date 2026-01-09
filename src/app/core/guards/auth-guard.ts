@@ -1,11 +1,12 @@
-import {CanActivateFn, Router} from '@angular/router';
-import {inject} from '@angular/core';
-import {AuthService} from '../service/auth-service';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthService } from '../service/auth-service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
+  // Use a fresh check against storage-backed token to avoid stale in-memory state
   if (authService.isAuthenticated()) {
     return true;
   }

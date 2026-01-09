@@ -1,43 +1,68 @@
-import {inject, Injectable, signal} from '@angular/core';
-
-import {environment} from '../../../environments/environment';
-import {AccessToken, AuthRequest} from '../model/auth.models';
-import {HttpClient} from '@angular/common/http';
-import {Observable, tap} from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { AccessToken, AuthRequest, JWTPayload } from '../model/auth.models';
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
-  private http: HttpClient = inject(HttpClient)
+  private http: HttpClient = inject(HttpClient);
   private readonly ACCESS_TOKEN_KEY = 'access_token';
-  authStatus = signal(false)
 
-  constructor() {
-    this.authStatus.set(!!localStorage.getItem(this.ACCESS_TOKEN_KEY))
-  }
+  private authStatusSignal = signal(this.hasValidToken());
+
+  constructor() {}
 
   isAuthenticated(): boolean {
-    return this.authStatus();
+    const valid = this.hasValidToken();
+    if (this.authStatusSignal() !== valid) {
+      this.authStatusSignal.set(valid);
+    }
+    return valid;
+  }
+
+  private hasValidToken(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+    return !this.isTokenExpired(token);
+  }
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const decoded = jwtDecode<JWTPayload>(token);
+      if (!decoded.exp) return true;
+      return Date.now() >= decoded.exp * 1000;
+    } catch (error) {
+      return true;
+    }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
 
   login(authRequest: AuthRequest): Observable<AccessToken> {
-    return this.http.post<AccessToken>(
-      `${environment.apiBaseUrl}/auth/login`,
-      authRequest
-    ).pipe(
-      tap({
-        next: res => {
-          localStorage.setItem(this.ACCESS_TOKEN_KEY, res.accessToken);
-          this.authStatus.set(true);
-        }
-      })
-    )
+    return this.http
+      .post<AccessToken>(`${environment.apiBaseUrl}/auth/login`, authRequest)
+      .pipe(
+        tap({
+          next: (res) => {
+            localStorage.setItem(this.ACCESS_TOKEN_KEY, res.accessToken);
+            this.authStatusSignal.set(true);
+          },
+        }),
+        catchError((error) => {
+          this.authStatusSignal.set(false);
+          return throwError(() => error);
+        })
+      );
   }
 
   logout(): void {
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
-    this.authStatus.set(false);
+    this.authStatusSignal.set(false);
   }
 }

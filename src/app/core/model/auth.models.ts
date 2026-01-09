@@ -6,3 +6,9 @@ export interface AuthRequest {
 export interface AccessToken {
   accessToken: string
 }
+
+
+export type JWTPayload = {
+  exp?: number;
+  [key: string]: any;
+};
