@@ -18,7 +18,6 @@ export class AuthService {
     this.authStatus.set(!!localStorage.getItem(this.ACCESS_TOKEN_KEY))
   }
 
-
   isAuthenticated(): boolean {
     return this.authStatus();
   }
@@ -31,8 +30,14 @@ export class AuthService {
       tap({
         next: res => {
           localStorage.setItem(this.ACCESS_TOKEN_KEY, res.accessToken);
+          this.authStatus.set(true);
         }
       })
     )
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    this.authStatus.set(false);
   }
 }

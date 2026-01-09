@@ -34,8 +34,8 @@ export class Login {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private authService: AuthService
   ) {
     this.loginForm = fb.group({
@@ -69,12 +69,12 @@ export class Login {
 
     this.authService.login(authRequest).subscribe({
       next: () => {
-        this.router.navigateByUrl(this.returnUrl);
         this.isLoading.set(false);
+        this.router.navigateByUrl(this.returnUrl);
       },
       error: (err) => {
         console.log('This is the error: ', err);
-        this.isLoading.set(false)
+        this.isLoading.set(false);
       }
     });
   }
