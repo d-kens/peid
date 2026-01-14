@@ -1,13 +1,13 @@
-
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
+// ==========================================================================
+// Material Design 3 Theme Configuration
+// ==========================================================================
 @use '@angular/material' as mat;
 
 html {
   height: 100%;
+
+  // Apply Angular Material theme with base palettes
+  // These will be overridden by CSS variables below
   @include mat.theme((
     color: (
       primary: mat.$azure-palette,
@@ -16,22 +16,84 @@ html {
     typography: Roboto,
     density: 0,
   ));
+
+  // -------------------------------------------------------------------------
+  // Material Design System Token Overrides
+  // -------------------------------------------------------------------------
+
+  /* Primary Colors - Buttons, headers, primary actions */
+  --mat-sys-primary: #030712;
+  --mat-sys-on-primary: #F5F6FA;
+  --mat-sys-primary-container: #1E2A45;
+  --mat-sys-on-primary-container: #F5F6FA;
+
+  /* Secondary Colors - Secondary actions, less prominent elements */
+  --mat-sys-secondary: #1E2A45;
+  --mat-sys-on-secondary: #F5F6FA;
+  --mat-sys-secondary-container: #2C3E5F;
+  --mat-sys-on-secondary-container: #F5F6FA;
+
+  /* Tertiary Colors - Accents, links, highlights */
+  --mat-sys-tertiary: #00BFA6;
+  --mat-sys-on-tertiary: #030712;
+  --mat-sys-tertiary-container: #00D4B8;
+  --mat-sys-on-tertiary-container: #030712;
+
+  /* Error Colors - Errors, destructive actions */
+  --mat-sys-error: #FF5E5E;
+  --mat-sys-on-error: #FFFFFF;
+  --mat-sys-error-container: #FFEBE9;
+  --mat-sys-on-error-container: #410002;
+
+  /* Surface & Background */
+  --mat-sys-background: #F5F6FA;
+  --mat-sys-on-background: #030712;
+  --mat-sys-surface: #F5F6FA;
+  --mat-sys-on-surface: #030712;
+  --mat-sys-surface-variant: #E1E3E8;
+  --mat-sys-on-surface-variant: #A3A6B0;
+
+  /* Surface Containers - Cards, dialogs, elevated surfaces */
+  --mat-sys-surface-container-lowest: #FFFFFF;
+  --mat-sys-surface-container-low: #ECEEF3;
+  --mat-sys-surface-container: #E6E8ED;
+  --mat-sys-surface-container-high: #E0E2E7;
+  --mat-sys-surface-container-highest: #1B1F2B;
+
+  /* Outline & Borders */
+  --mat-sys-outline: #C4C6CF;
+  --mat-sys-outline-variant: #E1E3E8;
+
+  // -------------------------------------------------------------------------
+  // Custom Application Tokens (Non-MD3 standard)
+  // -------------------------------------------------------------------------
+
+  /* Warning - Not a core MD3 token but useful for notifications */
+  --app-warning: #FF9800;
+  --app-on-warning: #FFFFFF;
+
+  /* Success - For success states and snackbars */
+  --app-success: #4CAF50;
+  --app-on-success: #FFFFFF;
+
+  /* Info - For informational messages */
+  --app-info: #2196F3;
+  --app-on-info: #FFFFFF;
+
+  /* CTA - Call-to-action accent */
+  --app-cta: #FF5E5E;
+  --app-on-cta: #FFFFFF;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
+  // Light color scheme (change to 'dark' or 'light dark' for system preference)
   color-scheme: light;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
+  // Base styling using Material Design system variables
+  background-color: var(--mat-sys-background);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 
-  // Reset the user agent margin.
   margin: 0;
   height: 100%;
 }

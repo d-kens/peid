@@ -1,51 +1,105 @@
-/* Snackbar Styles */
+/* ==========================================================================
+   Component-Specific Overrides & Utilities
+   These styles complement the theme variables defined in material-theme.scss
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Material Component Overrides
+   -------------------------------------------------------------------------- */
+
+/* Cards - Use highest container for elevated appearance */
+.mat-mdc-card {
+  background-color: var(--mat-sys-surface-container-highest);
+  color: var(--mat-sys-on-primary);
+}
+
+/* Dialogs */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--mat-sys-surface-container-highest);
+  color: var(--mat-sys-on-primary);
+}
+
+/* Buttons - Ensure proper contrast */
+.mdc-button.mdc-button--unelevated,
+.mdc-button.mdc-button--raised {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.mdc-button.mdc-button--outlined {
+  border-color: var(--mat-sys-outline);
+  color: var(--mat-sys-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Snackbar Variants
+   -------------------------------------------------------------------------- */
+
 /* Success Snackbar */
 .success-snackbar {
-  --mdc-snackbar-container-color: #4caf50 !important;
-  --mat-mdc-snack-bar-button-color: #ffffff !important;
-  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mdc-snackbar-container-color: var(--app-success) !important;
+  --mat-mdc-snack-bar-button-color: var(--app-on-success) !important;
+  --mdc-snackbar-supporting-text-color: var(--app-on-success) !important;
 }
 
 .success-snackbar .mdc-snackbar__surface {
-  background-color: #4caf50 !important;
+  background-color: var(--app-success) !important;
 }
 
 .success-snackbar .mat-mdc-snack-bar-label {
-  color: #ffffff !important;
+  color: var(--app-on-success) !important;
 }
 
 /* Error Snackbar */
 .error-snackbar {
-  --mdc-snackbar-container-color: #f44336 !important;
-  --mat-mdc-snack-bar-button-color: #ffffff !important;
-  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mdc-snackbar-container-color: var(--mat-sys-error) !important;
+  --mat-mdc-snack-bar-button-color: var(--mat-sys-on-error) !important;
+  --mdc-snackbar-supporting-text-color: var(--mat-sys-on-error) !important;
 }
 
 .error-snackbar .mdc-snackbar__surface {
-  background-color: #f44336 !important;
+  background-color: var(--mat-sys-error) !important;
 }
 
 .error-snackbar .mat-mdc-snack-bar-label {
-  color: #ffffff !important;
+  color: var(--mat-sys-on-error) !important;
 }
 
-/* Warning Snackbar (Optional) */
+/* Warning Snackbar */
 .warning-snackbar {
-  --mdc-snackbar-container-color: #ff9800 !important;
-  --mat-mdc-snack-bar-button-color: #ffffff !important;
-  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mdc-snackbar-container-color: var(--app-warning) !important;
+  --mat-mdc-snack-bar-button-color: var(--app-on-warning) !important;
+  --mdc-snackbar-supporting-text-color: var(--app-on-warning) !important;
 }
 
 .warning-snackbar .mdc-snackbar__surface {
-  background-color: #ff9800 !important;
+  background-color: var(--app-warning) !important;
 }
 
 .warning-snackbar .mat-mdc-snack-bar-label {
-  color: #ffffff !important;
+  color: var(--app-on-warning) !important;
 }
 
+/* Info Snackbar */
+.info-snackbar {
+  --mdc-snackbar-container-color: var(--app-info) !important;
+  --mat-mdc-snack-bar-button-color: var(--app-on-info) !important;
+  --mdc-snackbar-supporting-text-color: var(--app-on-info) !important;
+}
 
-/* Compact Material Form Fields */
+.info-snackbar .mdc-snackbar__surface {
+  background-color: var(--app-info) !important;
+}
+
+.info-snackbar .mat-mdc-snack-bar-label {
+  color: var(--app-on-info) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Utility Classes
+   -------------------------------------------------------------------------- */
+
+/* Compact Form Fields - Reduced vertical spacing */
 .compact-field .mat-mdc-form-field-infix {
   padding-top: 12px !important;
   padding-bottom: 12px !important;

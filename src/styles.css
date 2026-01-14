@@ -1,2 +1,14 @@
 @import "tailwindcss";
+
+/* Tailwind v4 theme variables: define design tokens as utilities */
+@theme {
+  /* Semantic color tokens */
+  --color-primary: #030712;      /* buttons, headers, navbar */
+  --color-secondary: #1E2A45;    /* secondary backgrounds, hover states */
+  --color-warning: #FFC542;      /* warnings, notifications */
+  --color-background: #F5F6FA;   /* main background */
+  --color-card: #1B1F2B;         /* cards, modals */
+  --color-muted: #A3A6B0;        /* placeholder text, secondary info */
+}
+
 @import './styles/material-overrides.css';
